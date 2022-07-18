@@ -64,7 +64,7 @@ const getContributedRepo = async (issuesObj, maxCount) => {
   )
 }
 
-router.get('/:username', async (req, res, next) => {
+router.get('/@:username', async (req, res, next) => {
   var username = req.params.username;
   var regex = /^(?!.*\.\.)(?!.*\.$)[^\W][\w-.]{0,39}$/gi;
 
