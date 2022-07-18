@@ -1,0 +1,22 @@
+extends layout
+
+block content
+	div
+		img(src= avatar, alt #{name}'s avtar )
+	h1= name
+	if bio
+		p= bio		
+	h1 popular projects
+	if popularProjects.length > 0
+		each repo in popularProjects
+			h4= repo.name
+			p= repo.description
+	else
+		p #{name} is not created any project!
+	h1 contributed projects
+	if contributedProject.length > 0
+		each repo in contributedProject
+			h4= repo.name
+			p= repo.description
+	else 
+		p #{name} is not contributed in any project!
