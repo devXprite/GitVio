@@ -6,6 +6,17 @@ const { default: axios } = require('axios');
 var express = require('express');
 var router = express.Router();
 
+const removeForks = (userRepoObj) => {
+  let tmp = [];
+  userRepoObj.forEach(repo => {
+    if (!repo.fork) {
+      tmp.push(repo);
+    }
+  });
+
+  return tmp;
+}
+
 const getPopularRepo = async (reposObj, maxCount) => {
 
   let rerurnData = [];
@@ -26,6 +37,43 @@ const getPopularRepo = async (reposObj, maxCount) => {
     }
   }
   return rerurnData;
+}
+
+const getLanguage = async (userRepoObj) => {
+  let allLanguages = { total: 0 };
+
+  return new Promise((resolve, reject) => {
+    Promise.allSettled(
+      userRepoObj.slice(0, 10).map((repo) => {
+        return new Promise((resolve, reject) => {
+          axios.get(repo.languages_url).then((response) => {
+            let responseData = response.data;
+
+            Object.keys(responseData).forEach(language => {
+              let currentLangSize = (allLanguages[language]) ? allLanguages[language] : 0;
+              allLanguages[language] = currentLangSize + parseInt(responseData[language]);
+              allLanguages.total += responseData[language];
+            });
+
+          }).catch((error) => {
+            // do nothing
+          }).then(() => {
+            resolve()
+          })
+        })
+      })
+    ).then(() => {
+      Object.keys(allLanguages).map((lang) => {
+        if (lang != "total") {
+          allLanguages[lang] = parseFloat((allLanguages[lang] / allLanguages.total * 100)).toFixed(2);
+        }
+      })
+      delete allLanguages.total;
+      resolve(allLanguages)
+    })
+  })
+
+
 }
 
 const getContributedRepo = async (issuesObj, maxCount) => {
@@ -77,8 +125,8 @@ router.get('/@:username', async (req, res, next) => {
 
   try {
     const userObj = (await axios(`https://api.github.com/users/${username}`)).data;
-    const userRepos = (await axios(`https://api.github.com/users/${username}/repos?per_page=100`)).data;
-    const userPR = ((await axios(`https://api.github.com/search/issues?q=type:pr+is:merged+author:${username}&per_page=100`)).data).items;
+    const userRepos = removeForks((await axios(`https://api.github.com/users/${username}/repos?per_page=100`)).data);
+    const userPR = removeForks(((await axios(`https://api.github.com/search/issues?q=type:pr+is:merged+author:${username}&per_page=100`)).data).items);
 
     Object.assign(renderData, {
       title: `${username}'s Portfolio`,
@@ -95,6 +143,7 @@ router.get('/@:username', async (req, res, next) => {
 
     renderData.popularProjects = await getPopularRepo(userRepos, 6);
     renderData.contributedProject = await getContributedRepo(userPR, 5);
+    renderData.languages = await getLanguage(userRepos, 10)
 
     console.log(renderData);
     res.render('user', renderData);
