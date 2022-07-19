@@ -1,10 +1,24 @@
 var _ = require("lodash");
 const byteSize = require('byte-size')
 var createError = require('http-errors');
+const moment =  require("moment")
+const dotenv = require("dotenv")
 const { default: axios } = require('axios');
+
+dotenv.config();
+
+const USERNAME = process.env.USERNAME;
+const PASSWORD = process.env.TOKEN;
+
+axios.defaults.auth = {
+  username: USERNAME,
+  password: PASSWORD
+}
 
 var express = require('express');
 var router = express.Router();
+
+
 
 const removeForks = (userRepoObj) => {
   let tmp = [];
@@ -39,12 +53,12 @@ const getPopularRepo = async (reposObj, maxCount) => {
   return rerurnData;
 }
 
-const getLanguage = async (userRepoObj) => {
+const getLanguage = async (userRepoObj, maxCount) => {
   let allLanguages = { total: 0 };
 
   return new Promise((resolve, reject) => {
     Promise.allSettled(
-      userRepoObj.slice(0, 10).map((repo) => {
+      userRepoObj.slice(0, maxCount).map((repo) => {
         return new Promise((resolve, reject) => {
           axios.get(repo.languages_url).then((response) => {
             let responseData = response.data;
@@ -142,14 +156,20 @@ router.get('/@:username', async (req, res, next) => {
     })
 
     renderData.popularProjects = await getPopularRepo(userRepos, 6);
-    renderData.contributedProject = await getContributedRepo(userPR, 5);
+    renderData.contributedProject = await getContributedRepo(userPR, 6);
     renderData.languages = await getLanguage(userRepos, 10)
 
     console.log(renderData);
     res.render('user', renderData);
   } catch (error) {
-    next(createError(500));
-    console.log(error);
+
+    if (error.code == "ERR_BAD_REQUEST") {
+      let limitReset = moment(error.response.headers["x-ratelimit-reset"] * 1000).toNow(true);
+      next(createError(529,`Try again in ${limitReset}`));
+    } else {
+      next(createError(500));
+    }
+
   }
 
 });

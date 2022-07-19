@@ -20,3 +20,10 @@ block content
 			p= repo.description
 	else 
 		p #{name} is not contributed in any project!
+	h1 top languages
+	if languages
+		each lang,percnt in languages
+			h4= lang
+			p= percnt
+	else 
+		p #{name} is not contributed in any project!
