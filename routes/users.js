@@ -2,7 +2,8 @@ var _ = require("lodash");
 const byteSize = require('byte-size')
 var createError = require('http-errors');
 const moment =  require("moment")
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
+const NodeCache = require("node-cache");
 const { default: axios } = require('axios');
 
 dotenv.config();
@@ -18,7 +19,7 @@ axios.defaults.auth = {
 var express = require('express');
 var router = express.Router();
 
-
+const cache = new NodeCache({ stdTTL: 60 * 60 * 1 });
 
 const removeForks = (userRepoObj) => {
   let tmp = [];
@@ -137,10 +138,17 @@ router.get('/@:username', async (req, res, next) => {
     return
   }
 
+  if (cache.has(username)) {
+    let userNameData = cache.get(username);
+    console.log(`Sending Response from cache memory`);
+    res.render('user', userNameData);
+    return
+  }
+
   try {
     const userObj = (await axios(`https://api.github.com/users/${username}`)).data;
     const userRepos = removeForks((await axios(`https://api.github.com/users/${username}/repos?per_page=100`)).data);
-    const userPR = removeForks(((await axios(`https://api.github.com/search/issues?q=type:pr+is:merged+author:${username}&per_page=100`)).data).items);
+    // const userPR = removeForks(((await axios(`https://api.github.com/search/issues?q=type:pr+is:merged+author:${username}&per_page=100`)).data).items);
 
     Object.assign(renderData, {
       title: `${username}'s Portfolio`,
@@ -164,6 +172,7 @@ router.get('/@:username', async (req, res, next) => {
 
     console.log(renderData);
     res.render('user', renderData);
+    cache.set(username, renderData);
   } catch (error) {
 
     if (error.code == "ERR_BAD_REQUEST") {
