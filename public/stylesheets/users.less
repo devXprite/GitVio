@@ -1,0 +1,159 @@
+@import "./_base.less";
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 10vh auto auto auto;
+  text-align: center;
+
+  img {
+    display: block;
+    margin: auto;
+    width: 180px;
+    margin-bottom: 7vh;
+    border-radius: 50%;
+    border: darken(@colors[imgBorder], 10%) 3px solid;
+    box-shadow: @colors[imgBorder] 0px 0px 8px;
+    transition: all 0.5s;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: @colors[imgBorder] 0px 0px 12px 4px;
+    }
+  }
+
+  .username,
+  .name {
+    margin: 0px;
+  }
+
+  .name {
+    color: @colors[secondry];
+    font-size: 2.2em;
+    font-weight: lighter;
+    background: -webkit-linear-gradient(120deg, @colors[secondry], #0e6ace);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .username {
+    color: lighten(@backgroundColors[primary], 35%);
+
+    &::before {
+      content: "@";
+    }
+  }
+}
+
+main {
+  margin-top: 10vh;
+
+  section {
+    margin: auto;
+    padding: 0.25em 0.5em;
+    border-radius: 0.5em;
+    width: 90vw;
+    background-color: @backgroundColors[secondry];
+    box-shadow: @backgroundColors[primary] 2px 2px 4px;
+
+
+    &>h2 {
+      color: @colors[primary];
+      margin-left: 2vw;
+    }
+
+    &>.repoContainer {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+
+      &>div {
+
+        margin: 0.6em 0.3em;
+        border-radius: 0.5em;
+        padding: 0em 0.8em;
+        background-color: @backgroundColors[tertiary];
+        box-shadow: @backgroundColors[primary] 2px 2px 4px;
+        border: darken(@colors[secondry], 30%) 1px solid;
+        transition: all 0.5s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        &:hover {
+          transform: scale(1.05);
+          border: @colors[secondry] 2px solid;
+          background-color: lighten(@backgroundColors[tertiary], 5%);
+        }
+
+        .repoName {
+          color: @colors[secondry];
+        }
+
+        .repoBio {
+          color: darken(@colors[primary], 10%);
+        }
+
+        .repoFooter {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+          div {
+            &:nth-child(1) {
+              display: flex;
+              flex-direction: row;
+
+              p {
+                padding: 0px 2px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@media @desktop {
+  header {
+    flex-direction: row;
+    width: 80vw;
+
+    img {
+      width: 220px;
+    }
+
+    .name {
+      font-size: 4.5em;
+    }
+
+    .username {
+      font-size: 1.5em;
+      margin-bottom: 5vh;
+
+    }
+  }
+
+  main {
+    section {
+      width: 85vw;
+
+      &>h2 {
+        margin-left: 1.3vw;
+      }
+
+      &>.repoContainer {
+        flex-direction: row;
+        justify-content: space-around;
+
+        &>div {
+          flex-basis: calc((100% - 8em)/3);
+        }
+      }
+    }
+  }
+}

@@ -155,9 +155,12 @@ router.get('/@:username', async (req, res, next) => {
       avatar: userObj.avatar_url
     })
 
+    // renderData.popularProjects = await getPopularRepo(userRepos, 6);
+    // renderData.contributedProject = await getContributedRepo(userPR, 6);
+    // renderData.languages = await getLanguage(userRepos, 10);
     renderData.popularProjects = await getPopularRepo(userRepos, 6);
-    renderData.contributedProject = await getContributedRepo(userPR, 6);
-    renderData.languages = await getLanguage(userRepos, 10)
+    // renderData.contributedProject = await getContributedRepo(userPR, 3);
+    // renderData.languages = await getLanguage(userRepos, 3);
 
     console.log(renderData);
     res.render('user', renderData);

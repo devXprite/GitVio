@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Dosis:wght@300;400&family=Exo+2:ital,wght@0,300;0,400;1,300;1,400&family=Poppins:wght@300;400&family=Roboto:wght@300&display=swap');
+
+@colors : {
+    primary: #c6d3e7;
+    secondry: #10ebe5;
+    imgBorder:#0facda;
+}
+
+@backgroundColors: {
+    primary: #010101;
+    secondry: #0f1724;
+    tertiary: #090f19;
+}
+
+@desktop: ~"only screen and (min-width: 600px) ";
+
+body {
+    background-color: @backgroundColors[primary];
+    color: @colors[primary];
+    font-family: 'Poppins', sans-serif;
+}
+
+::selection {
+    background-color: darken(@colors[secondry], 15%);
+    color: @backgroundColors[secondry];
+}

@@ -61,4 +61,5 @@ typings/
 .next
 
 temp.*
+tmp
 .vercel

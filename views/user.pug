@@ -1,29 +1,26 @@
 extends layout
 
 block content
-	div
-		img(src= avatar)
-	h1= name
-	if bio
-		p= bio		
-	h1 popular projects
-	if popularProjects.length > 0
-		each repo in popularProjects
-			h4= repo.name
-			p= repo.description
-	else
-		p #{name} is not created any project!
-	h1 contributed projects
-	if contributedProject.length > 0
-		each repo in contributedProject
-			h4= repo.name
-			p= repo.description
-	else 
-		p #{name} is not contributed in any project!
-	h1 top languages
-	if languages
-		each lang,percnt in languages
-			h4= lang
-			p= percnt
-	else 
-		p #{name} is not contributed in any project!
+    header
+        div
+            img(src= avatar)
+        div
+            h2.name= name
+            h3.username= username
+            p.bio= bio
+    main
+        section.popularRepo
+            h2 Popular Repos
+            .repoContainer
+                each repo in popularProjects
+                    div
+                        div.repoHeader
+                            h3.repoName= repo.name
+                            p.repoBio= repo.description
+                        div.repoFooter
+                            div
+                                p= repo.stargazers_count
+                                p= repo.forks_count
+                                p= repo.size
+                            div
+                                p= repo.language
