@@ -1,26 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Dosis:wght@300;400&family=Exo+2:ital,wght@0,300;0,400;1,300;1,400&family=Poppins:wght@300;400&family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Dosis:wght@300;400&family=Exo+2:ital,wght@0,300;0,400;1,300;1,400&family=Poppins:wght@300;400&family=Roboto:wght@300&family=Ubuntu:wght@300;400&display=swap');
 
 @colors : {
     primary: #c6d3e7;
     secondry: #10ebe5;
-    imgBorder:#0facda;
+    imgBorder: #0facda;
 }
 
 @backgroundColors: {
-    primary: #010101;
+    primary: #000;
     secondry: #0f1724;
     tertiary: #090f19;
+    footer: #070707;
 }
 
 @desktop: ~"only screen and (min-width: 600px) ";
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    color: #0fa1d8;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+        color: blueviolet;
+    }
+}
 
 body {
     background-color: @backgroundColors[primary];
     color: @colors[primary];
     font-family: 'Poppins', sans-serif;
+    margin: 0;
 }
 
 ::selection {
     background-color: darken(@colors[secondry], 15%);
     color: @backgroundColors[secondry];
+}
+
+footer {
+    background-color: @backgroundColors[footer];
+    font-family: 'Ubuntu', sans-serif;
+    text-align: center;
+    padding: 1.5vh 1vh;
+    margin-top: 5vh;
+}
+
+@media @desktop {
+    footer {
+        padding: 2vh 15vw;
+    }
 }

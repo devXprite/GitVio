@@ -16,7 +16,7 @@ header {
     border-radius: 50%;
     border: darken(@colors[imgBorder], 10%) 3px solid;
     box-shadow: @colors[imgBorder] 0px 0px 8px;
-    transition: all 0.5s;
+    transition: transform 0.5s;
 
     &:hover {
       transform: scale(1.05);
@@ -45,10 +45,6 @@ header {
     &::before {
       content: "@";
     }
-  }
-
-  &>div:nth-child(2){
-    max-width: 50vw;
   }
 }
 
@@ -99,6 +95,7 @@ main {
 
         .repoBio {
           color: darken(@colors[primary], 10%);
+          font-family: 'Ubuntu', sans-serif;
         }
 
         .repoFooter {
@@ -123,6 +120,7 @@ main {
 }
 
 
+
 @media @desktop {
   header {
     flex-direction: row;
@@ -139,7 +137,10 @@ main {
     .username {
       font-size: 1.5em;
       margin-bottom: 5vh;
+    }
 
+    &>div:nth-child(2) {
+      max-width: 50vw;
     }
   }
 
@@ -156,7 +157,7 @@ main {
         justify-content: space-around;
 
         &>div {
-          flex-basis: calc((100% - 8em)/3);
+          flex-basis: calc((100% - 2.5em)/3);
         }
       }
     }
