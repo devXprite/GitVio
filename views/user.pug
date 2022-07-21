@@ -24,3 +24,18 @@ block content
                                 p= repo.size
                             div
                                 p= repo.language
+        section.popularRepo
+            h2 Contributed Projects
+            .repoContainer
+                each repo in contributedProject
+                    div
+                        div.repoHeader
+                            h3.repoName= repo.name
+                            p.repoBio= repo.description
+                        div.repoFooter
+                            div
+                                p= repo.stargazers_count
+                                p= repo.forks_count
+                                p= repo.size
+                            div
+                                p= repo.language

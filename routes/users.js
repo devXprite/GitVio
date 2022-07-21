@@ -148,7 +148,7 @@ router.get('/@:username', async (req, res, next) => {
   try {
     const userObj = (await axios(`https://api.github.com/users/${username}`)).data;
     const userRepos = removeForks((await axios(`https://api.github.com/users/${username}/repos?per_page=100`)).data);
-    // const userPR = removeForks(((await axios(`https://api.github.com/search/issues?q=type:pr+is:merged+author:${username}&per_page=100`)).data).items);
+    const userPR = removeForks(((await axios(`https://api.github.com/search/issues?q=type:pr+is:merged+author:${username}&per_page=100`)).data).items);
 
     Object.assign(renderData, {
       title: `${username}'s Portfolio`,
@@ -168,8 +168,8 @@ router.get('/@:username', async (req, res, next) => {
     // renderData.contributedProject = await getContributedRepo(userPR, 6);
     // renderData.languages = await getLanguage(userRepos, 10);
     renderData.popularProjects = await getPopularRepo(userRepos, 6);
-    // renderData.contributedProject = await getContributedRepo(userPR, 3);
-    // renderData.languages = await getLanguage(userRepos, 3);
+    renderData.contributedProject = await getContributedRepo(userPR, 3);
+    // renderData.languages = await getLanguage(userRepos, 6);
 
     console.log(renderData);
     res.render('user', renderData);
