@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Dosis:wght@300;400&family=Exo+2:ital,wght@0,300;0,400;1,300;1,400&family=Poppins:wght@300;400&family=Roboto:wght@300&family=Ubuntu:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400&family=Dosis:wght@300;400&family=Electrolize&family=Exo+2:ital,wght@0,300;0,400;1,300;1,400&family=Poppins:wght@300;400&family=Roboto:wght@300&family=Ubuntu:wght@300;400&display=swap');
 
 @colors : {
     primary: #c6d3e7;
@@ -10,7 +10,17 @@
     primary: #000;
     secondry: #0f1724;
     tertiary: #090f19;
-    footer: #070707;
+    footer: #151515;
+}
+
+@fonts: {
+    Electrolize: 'Electrolize', sans-serif;
+    Comfortaa: 'Comfortaa', cursive;
+    Dosis: 'Dosis', sans-serif;
+    Roboto: 'Roboto', sans-serif;
+    Ubuntu: 'Ubuntu', sans-serif;
+    Exo: 'Exo 2', sans-serif;
+    Poppins: 'Poppins', sans-serif;
 }
 
 @desktop: ~"only screen and (min-width: 600px) ";
@@ -29,10 +39,18 @@ a {
     }
 }
 
+h1,
+h2,
+h3 {
+    font-weight: normal;
+}
+
+
 body {
     background-color: @backgroundColors[primary];
     color: @colors[primary];
-    font-family: 'Poppins', sans-serif;
+    font-family: @fonts[Poppins];
+    // font-family: 'Ubuntu', sans-serif;
     margin: 0;
 }
 
@@ -42,8 +60,9 @@ body {
 }
 
 footer {
-    background-color: @backgroundColors[footer];
-    font-family: 'Ubuntu', sans-serif;
+    background-color: @backgroundColors[tertiary];
+    font-family: @fonts[Exo];
+    color: darken(@colors[primary], 10%);
     text-align: center;
     padding: 1.5vh 1vh;
     margin-top: 5vh;

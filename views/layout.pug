@@ -6,9 +6,13 @@ html
     meta(http-equiv='X-UA-Compatible' content='IE=edge')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
     base(target="_blank")
+    link(rel='stylesheet' href='/stylesheets/normalize.min.css')
     link(rel='stylesheet' href='/stylesheets/users.css')
+    script(src="javascripts/particles.min.js") 
   body
+    div#particles-js
     block content
     footer
       if  username
-        p !{`This resume is generated automatically using public information from the developer's GitHub account. The repositories are ordered by popularity based on a very simple popularity heuristic that defines the popularity of a repository by its sum of watchers and forks. Do not hesitate to visit <a href="http://github.com/${username}"> ${username}'s GitHub page </a> for a complete work history.`}
+        p !{`This resume is generated automatically using public information from the developer's GitHub account.  Do not hesitate to visit <a href="http://github.com/${username}"> ${username}'s GitHub page </a> for a complete work history.`}
+    script(src="javascripts/base.js") 

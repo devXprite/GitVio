@@ -1,7 +1,7 @@
 var _ = require("lodash");
 const byteSize = require('byte-size')
 var createError = require('http-errors');
-const moment =  require("moment")
+const moment = require("moment")
 const dotenv = require("dotenv");
 const NodeCache = require("node-cache");
 const { default: axios } = require('axios');
@@ -152,7 +152,7 @@ router.get('/@:username', async (req, res, next) => {
 
     Object.assign(renderData, {
       title: `${username}'s Portfolio`,
-      name: userObj.login,
+      name: userObj.name || userObj.login,
       username: userObj.login,
       following: userObj.following,
       followers: userObj.followers,
@@ -160,7 +160,8 @@ router.get('/@:username', async (req, res, next) => {
       location: userObj.location,
       bio: userObj.bio,
       twitter_username: userObj.twitter_username,
-      avatar: userObj.avatar_url
+      avatar: userObj.avatar_url,
+      hireable:userObj.hireable
     })
 
     // renderData.popularProjects = await getPopularRepo(userRepos, 6);
@@ -177,7 +178,7 @@ router.get('/@:username', async (req, res, next) => {
 
     if (error.code == "ERR_BAD_REQUEST") {
       let limitReset = moment(error.response.headers["x-ratelimit-reset"] * 1000).toNow(true);
-      next(createError(529,`Try again in ${limitReset}`));
+      next(createError(529, `Try again in ${limitReset}`));
     } else {
       next(createError(500));
     }

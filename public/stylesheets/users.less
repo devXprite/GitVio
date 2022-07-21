@@ -37,11 +37,12 @@ header {
     background: -webkit-linear-gradient(120deg, @colors[secondry], #0e6ace);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-family: @fonts[Comfortaa];
   }
 
   .username {
     color: lighten(@backgroundColors[primary], 35%);
-
+    font-family: @fonts[Ubuntu];
     &::before {
       content: "@";
     }
@@ -52,7 +53,7 @@ main {
   margin-top: 10vh;
 
   section {
-    margin: auto;
+    margin: 3.5vh auto;
     padding: 0.25em 0.5em;
     border-radius: 0.5em;
     width: 90vw;
@@ -95,7 +96,7 @@ main {
 
         .repoBio {
           color: darken(@colors[primary], 10%);
-          font-family: 'Ubuntu', sans-serif;
+          font-family: @fonts[Ubuntu];
         }
 
         .repoFooter {
@@ -162,4 +163,12 @@ main {
       }
     }
   }
+}
+
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  margin-top: -10vh;
 }
