@@ -22,8 +22,7 @@ block content
                                 p= repo.stargazers_count
                                 p= repo.forks_count
                                 p= repo.size
-                            div
-                                p= repo.language
+                            div !{`<p class="repoLang" data-color="${repo.languageColor}">${repo.language}</p>`}
         section.popularRepo
             h2 Contributed Projects
             .repoContainer
@@ -37,5 +36,5 @@ block content
                                 p= repo.stargazers_count
                                 p= repo.forks_count
                                 p= repo.size
-                            div
-                                p= repo.language
+                            div !{`<p class="repoLang" data-color="${repo.languageColor}">${repo.language}</p>`}
+                            

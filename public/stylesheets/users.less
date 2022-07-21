@@ -43,6 +43,7 @@ header {
   .username {
     color: lighten(@backgroundColors[primary], 35%);
     font-family: @fonts[Ubuntu];
+
     &::before {
       content: "@";
     }
@@ -112,6 +113,14 @@ main {
               p {
                 padding: 0px 2px;
               }
+            }
+
+            .repoLang {
+              padding: 4px;
+              font-size: 12px;
+              background-color: attr(data-color);
+              border-radius: 0.5em;
+              font-family: @fonts[Ubuntu];
             }
           }
         }

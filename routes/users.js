@@ -6,6 +6,8 @@ const dotenv = require("dotenv");
 const NodeCache = require("node-cache");
 const { default: axios } = require('axios');
 
+const color = require('../src/json/colors.json');
+
 dotenv.config();
 
 const USERNAME = process.env.USERNAME;
@@ -32,6 +34,15 @@ const removeForks = (userRepoObj) => {
   return tmp;
 }
 
+const getLanguageColor = (language) => {
+  try {
+    return color[language]["color"]
+  } catch (error) {
+    console.log(error, language);
+    return null
+  }
+}
+
 const getPopularRepo = async (reposObj, maxCount) => {
 
   let rerurnData = [];
@@ -44,6 +55,7 @@ const getPopularRepo = async (reposObj, maxCount) => {
         name: repo.name,
         html_url: repo.html_url,
         language: repo.language,
+        languageColor: getLanguageColor(repo.language),
         size: `${byteSize(repo.size * 1000)}`,
         description: repo.description,
         stargazers_count: repo.stargazers_count,
@@ -111,6 +123,7 @@ const getContributedRepo = async (issuesObj, maxCount) => {
           name: repo.name,
           html_url: repo.html_url,
           language: repo.language,
+          languageColor: getLanguageColor(repo.language),
           size: `${byteSize(repo.size * 1000)}`,
           description: repo.description,
           stargazers_count: repo.stargazers_count,
@@ -161,7 +174,7 @@ router.get('/@:username', async (req, res, next) => {
       bio: userObj.bio,
       twitter_username: userObj.twitter_username,
       avatar: userObj.avatar_url,
-      hireable:userObj.hireable
+      hireable: userObj.hireable
     })
 
     // renderData.popularProjects = await getPopularRepo(userRepos, 6);
@@ -183,6 +196,7 @@ router.get('/@:username', async (req, res, next) => {
       next(createError(500));
     }
 
+    console.log(error);
   }
 
 });
