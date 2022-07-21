@@ -55,22 +55,25 @@ main {
 
   section {
     margin: 3.5vh auto;
-    padding: 0.25em 0.5em;
     border-radius: 0.5em;
     width: 90vw;
+    overflow: hidden;
     background-color: @backgroundColors[secondry];
     box-shadow: @backgroundColors[primary] 2px 2px 4px;
 
-
     &>h2 {
       color: @colors[primary];
-      margin-left: 2vw;
+      padding: 0.5em;
+      margin: 0;
+      background-color: @backgroundColors[tertiary];
     }
 
     &>.repoContainer {
       display: flex;
       flex-wrap: wrap;
       flex-direction: column;
+      padding: 0em 0.5em;
+
 
       &>div {
 
@@ -104,6 +107,8 @@ main {
           display: flex;
           flex-direction: row;
           justify-content: space-between;
+          font-size: 14px;
+
 
           div {
             &:nth-child(1) {
@@ -158,9 +163,6 @@ main {
     section {
       width: 85vw;
 
-      &>h2 {
-        margin-left: 1.3vw;
-      }
 
       &>.repoContainer {
         flex-direction: row;
