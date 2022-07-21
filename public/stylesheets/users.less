@@ -1,5 +1,19 @@
 @import "./_base.less";
 
+.neonDiv {
+  border-radius: 0.4em;
+  transition: all 0.3s;
+  background-color: @backgroundColors[tertiary];
+  box-shadow: @backgroundColors[primary] 2px 2px 4px;
+  border: darken(@colors[secondry], 30%) 1px solid;
+
+  &:hover {
+    transform: scale(1.05);
+    border: @colors[secondry] 2px solid;
+    background-color: lighten(@backgroundColors[tertiary], 5%);
+  }
+}
+
 header {
   display: flex;
   flex-direction: column;
@@ -58,14 +72,45 @@ main {
     border-radius: 0.5em;
     width: 90vw;
     overflow: hidden;
+    padding-bottom: 1em;
     background-color: @backgroundColors[secondry];
     box-shadow: @backgroundColors[primary] 2px 2px 4px;
 
     &>h2 {
       color: @colors[primary];
       padding: 0.5em;
-      margin: 0;
+      margin: 0 0 0.5em 0;
       background-color: @backgroundColors[tertiary];
+    }
+
+    &>.github {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-evenly;
+
+      &>div {
+        .neonDiv;
+        text-align: center;
+        flex-basis: 42%;
+        margin: 0.4em;
+        padding: 1em;
+
+        p {
+          margin: 0;
+
+          &.number {
+            font-size: 1.5em;
+            color: @colors[secondry];
+            font-family: @fonts[Electrolize];
+          }
+
+          &.activity {
+            color: darken(@colors[primary], 10%);
+            font-size: 0.9em;
+          }
+        }
+      }
     }
 
     &>.repoContainer {
@@ -77,22 +122,13 @@ main {
 
       &>div {
 
+        .neonDiv;
+
         margin: 0.6em 0.3em;
-        border-radius: 0.5em;
         padding: 0em 0.8em;
-        background-color: @backgroundColors[tertiary];
-        box-shadow: @backgroundColors[primary] 2px 2px 4px;
-        border: darken(@colors[secondry], 30%) 1px solid;
-        transition: all 0.5s;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-
-        &:hover {
-          transform: scale(1.05);
-          border: @colors[secondry] 2px solid;
-          background-color: lighten(@backgroundColors[tertiary], 5%);
-        }
 
         .repoName {
           color: @colors[secondry];
@@ -172,12 +208,18 @@ main {
           flex-basis: calc((100% - 2.5em)/3);
         }
       }
+
+      &>.github {
+        &>div {
+          flex-basis: 23%;
+        }
+      }
     }
   }
 }
 
 #particles-js {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   z-index: -1;

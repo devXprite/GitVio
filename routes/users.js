@@ -145,6 +145,7 @@ router.get('/@:username', async (req, res, next) => {
   var regex = /^(?!.*\.\.)(?!.*\.$)[^\W][\w-.]{0,39}$/gi;
 
   let renderData = {};
+  renderData.github = {};
 
   if (!regex.test(username)) {
     next();
@@ -167,19 +168,35 @@ router.get('/@:username', async (req, res, next) => {
       title: `${username}'s Portfolio`,
       name: userObj.name || userObj.login,
       username: userObj.login,
-      following: userObj.following,
-      followers: userObj.followers,
       website: userObj.blog,
       location: userObj.location,
       bio: userObj.bio,
       twitter_username: userObj.twitter_username,
       avatar: userObj.avatar_url,
-      hireable: userObj.hireable
-    })
+      hireable: userObj.hireable,
+    });
 
-    // renderData.popularProjects = await getPopularRepo(userRepos, 6);
-    // renderData.contributedProject = await getContributedRepo(userPR, 6);
-    // renderData.languages = await getLanguage(userRepos, 10);
+    renderData.github.following = userObj.following || 0;
+    renderData.github.followers = userObj.followers || 0;
+    renderData.github.repo = userObj.public_repos || 0;
+    renderData.github.gist = userObj.public_gists || 0;
+
+    await Promise.allSettled([
+      axios.get(`https://api.github.com/search/issues?q=type:pr+author:${username}&per_page=1`),
+      axios.get(`https://api.github.com/search/issues?q=type:issue+author:${username}&per_page=1`),
+      axios.get(`https://api.github.com/search/commits?q=author:${username}&per_page=1`),
+      axios.get(`https://api.github.com/users/${username}/orgs?per_page=100`),
+    ])
+      .then(async ([res1, res2, res3, res4]) => {
+        renderData.github.prCount = res1.value.data.total_count || 0;
+        renderData.github.issueCount = res2.value.data.total_count || 0;
+        renderData.github.commitsCount = res3.value.data.total_count || 0;
+        renderData.github.organizationsCount = (res4.value.data).length || 0;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
     renderData.popularProjects = await getPopularRepo(userRepos, 6);
     renderData.contributedProject = await getContributedRepo(userPR, 3);
     // renderData.languages = await getLanguage(userRepos, 6);
@@ -192,6 +209,8 @@ router.get('/@:username', async (req, res, next) => {
     if (error.code == "ERR_BAD_REQUEST") {
       let limitReset = moment(error.response.headers["x-ratelimit-reset"] * 1000).toNow(true);
       next(createError(529, `Try again in ${limitReset}`));
+    } if (error.code == "ENOTFOUND") {
+      next(createError(404, `User not found!`));
     } else {
       next(createError(500));
     }

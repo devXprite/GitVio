@@ -9,6 +9,33 @@ block content
             h3.username= username
             p.bio= bio
     main
+        section
+            h2 GitHub Activity
+            .github
+                div
+                    p.number= github.followers
+                    p.activity Followers
+                div
+                    p.number= github.following
+                    p.activity Following
+                div
+                    p.number= github.repo
+                    p.activity Repositories
+                div
+                    p.number= github.gist
+                    p.activity Gist
+                div
+                    p.number= github.prCount
+                    p.activity Pull Requests
+                div
+                    p.number= github.issueCount
+                    p.activity Issues
+                div
+                    p.number= github.commitsCount
+                    p.activity Commits
+                div
+                    p.number= github.organizationsCount
+                    p.activity Organizations
         section.popularRepo
             h2 Popular Projects
             .repoContainer
@@ -37,4 +64,3 @@ block content
                                 p= repo.forks_count
                                 p= repo.size
                             div !{`<p class="repoLang" data-color="${repo.languageColor}">${repo.language}</p>`}
-                            
