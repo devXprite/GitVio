@@ -1,5 +1,8 @@
 extends layout
 
+block style 
+    link(rel="stylesheet" href="/stylesheets/users.css")
+
 block content
     header
         div
@@ -38,40 +41,49 @@ block content
                     p.activity Organizations
         section 
             h2 Languages Used 
-            .popularLang
-                each langPercent, key in languages
-                    div 
-                        div.langIconContainer 
-                            img.langIcon(src= `https://cdn.jsdelivr.net/gh/PKief/vscode-material-icon-theme@main/icons/${key.toLowerCase()}.svg`, title= key alt=" " srcset="")
+            if (languages)
+                .popularLang
+                    each langPercent, key in languages
                         div 
-                            p.langPercent= langPercent
-                            p.activity= key 
+                            div.langIconContainer 
+                                img.langIcon(src= `https://cdn.jsdelivr.net/gh/PKief/vscode-material-icon-theme@main/icons/${key.toLowerCase()}.svg`, title= key alt=" " srcset="")
+                            div 
+                                p.langPercent= langPercent
+                                p.activity= key
+            else 
+                p Not enough data  
 
         section.popularRepo
             h2 Popular Projects
-            .repoContainer
-                each repo in popularProjects
-                    div
-                        div.repoHeader
-                            h3.repoName= repo.name
-                            p.repoBio= repo.description ? repo.description : "No Description"
-                        div.repoFooter
-                            div
-                                p= repo.stargazers_count
-                                p= repo.forks_count
-                                p= repo.size
-                            div !{`<p class="repoLang" data-color="${repo.languageColor}">${repo.language}</p>`}
+            if (popularProjects.length > 0)
+                .repoContainer
+                    each repo in popularProjects
+                        div
+                            div.repoHeader
+                                h3.repoName= repo.name
+                                p.repoBio= repo.description ? repo.description : "No Description"
+                            div.repoFooter
+                                div
+                                    p= repo.stargazers_count
+                                    p= repo.forks_count
+                                    p= repo.size
+                                div !{`<p class="repoLang" data-color="${repo.languageColor}">${repo.language}</p>`}
+            else 
+                p Not enough data                
         section.popularRepo
             h2 Contributed Projects
-            .repoContainer
-                each repo in contributedProject
-                    div
-                        div.repoHeader
-                            h3.repoName= repo.name
-                            p.repoBio= repo.description ? repo.description : "No Description"
-                        div.repoFooter
-                            div
-                                p= repo.stargazers_count
-                                p= repo.forks_count
-                                p= repo.size
-                            div !{`<p class="repoLang" data-color="${repo.languageColor}">${repo.language}</p>`}
+            if (contributedProject.length > 0)
+                .repoContainer
+                    each repo in contributedProject
+                        div
+                            div.repoHeader
+                                h3.repoName= repo.name
+                                p.repoBio= repo.description ? repo.description : "No Description"
+                            div.repoFooter
+                                div
+                                    p= repo.stargazers_count
+                                    p= repo.forks_count
+                                    p= repo.size
+                                div !{`<p class="repoLang" data-color="${repo.languageColor}">${repo.language}</p>`}
+            else 
+                p Not enough data                 

@@ -1,5 +1,25 @@
 extends layout
 
+block style 
+  link(rel="stylesheet" href="/stylesheets/index.css")
+
 block content
-  h1= title
-  p Welcome to #{title}
+  main 
+    h1= title
+    p= description
+    form#form(action="")
+      input(type="username" placeholder="Your Github Username") 
+      button(type="submit")!= searchIcon
+  #loader
+    svg.loader(viewBox='0 0 100 100')
+      g.points
+        circle.ciw(cx='50' cy='50' r='50' fill='#10ebe5')
+        circle.ci2(cx='5' cy='50' r='4')
+        circle.ci1(cx='95' cy='50' r='4')
+  script.
+    $("#form").submit((e) => {
+    e.preventDefault();
+    window.location.href = `@${$("#form input[type=\"username\"]").val()}`;
+    $("main").hide();
+    $("#loader").fadeIn();
+    });

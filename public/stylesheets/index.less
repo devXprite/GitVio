@@ -1,0 +1,243 @@
+@import "./_layout.less";
+
+body {
+    text-align: center;
+    font-family: @fonts[Ubuntu];
+}
+
+main,#loader{
+    min-height: 90vh;
+}
+
+main {
+
+    h1 {
+        display: inline-block;
+        font-size: 3em;
+        margin-top: 15vh;
+        margin-bottom: 0;
+        .gradientText;
+    }
+
+    form {
+        width: 90vw;
+        margin: 15vh auto auto auto;
+        border-radius: 0.3em;
+        overflow: hidden;
+        background-color: @backgroundColors[tertiary];
+        box-shadow: @backgroundColors[primary] 2px 2px 4px;
+        border: @colors[secondry] 1px solid;
+        color: @colors[secondry];
+
+        &::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        &.focus {
+            border: @colors[secondry] 2px solid;
+            background-color: lighten(@backgroundColors[tertiary], 5%);
+            outline: none;
+        }
+
+        input[type="username"],
+        button[type="submit"] {
+            height: 6vh;
+            background: transparent;
+            font-size: 18px;
+            border: none;
+
+            &:focus,
+            &:hover {
+                outline: none;
+            }
+        }
+
+        input[type="username"] {
+            float: left;
+            width: 85%;
+            padding-left: 12px;
+            color: @colors[secondry];
+        }
+
+        button[type="submit"] {
+            float: left;
+            width: 15%;
+            color: #aaa;
+            font-size: 20px;
+            background-color: lighten(@backgroundColors[tertiary], 10%);
+            cursor: pointer;
+
+            svg {
+                transform: scale(1.2);
+            }
+
+            &:disabled .fa-search {
+                opacity: 0.4;
+            }
+
+            &:hover {
+                background-color: lighten(@backgroundColors[tertiary], 30%);
+
+            }
+        }
+    }
+}
+
+#loader {
+    display: none;
+
+    .loader {
+        width: 20vw;
+        max-height: 90vh;
+        transform-origin: 50% 50%;
+        overflow: visible;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+
+        @media @desktop {
+            width: 10vw;
+        }
+
+        .ci1 {
+            fill: @backgroundColors[primary];
+            animation: toBig 3s infinite -1.5s;
+            transform-box: fill-box;
+            transform-origin: 50% 50%;
+        }
+
+        .ciw {
+            transform-box: fill-box;
+            transform-origin: 50% 50%;
+            animation: breath 3s infinite;
+        }
+
+        .ci2 {
+            fill: @backgroundColors[primary];
+            animation: toBig2 3s infinite;
+            transform-box: fill-box;
+            transform-origin: 50% 50%;
+
+        }
+    }
+
+    .points {
+        animation: rot 3s infinite;
+        transform-box: fill-box;
+        transform-origin: 50% 50%;
+    }
+
+    @keyframes rot {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        30% {
+            transform: rotate(360deg);
+        }
+
+        50% {
+            transform: rotate(360deg);
+        }
+
+        80% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(0deg);
+        }
+
+    }
+
+    @keyframes toBig {
+        0% {
+            transform: scale(1) translateX(0px);
+        }
+
+        30% {
+            transform: scale(1) translateX(0px);
+        }
+
+        50% {
+            transform: scale(10) translateX(-4.5px);
+        }
+
+        80% {
+            transform: scale(10) translateX(-4.5px);
+        }
+
+        100% {
+            transform: scale(1) translateX(0px);
+        }
+
+    }
+
+    @keyframes toBig2 {
+        0% {
+            transform: scale(1) translateX(0px);
+        }
+
+        30% {
+            transform: scale(1) translateX(0px);
+        }
+
+        50% {
+            transform: scale(10) translateX(4.5px);
+        }
+
+        80% {
+            transform: scale(10) translateX(4.5px);
+        }
+
+        100% {
+            transform: scale(1) translateX(0px);
+        }
+    }
+
+    @keyframes breath {
+        15% {
+            transform: scale(1);
+        }
+
+        40% {
+            transform: scale(1.1);
+        }
+
+        65% {
+            transform: scale(1);
+        }
+
+        90% {
+            transform: scale(1.1);
+        }
+    }
+}
+
+@media @desktop {
+    main {
+        h1 {
+            font-size: 5em;
+        }
+
+        p {
+            font-size: 1.5em;
+        }
+
+        form {
+            width: 50vw;
+
+            input[type="username"],
+            button[type="submit"] {
+                height: 7vh;
+                font-size: 22px;
+
+            }
+        }
+    }
+}

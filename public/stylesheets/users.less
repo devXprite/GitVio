@@ -1,4 +1,4 @@
-@import "./_base.less";
+@import "./_layout.less";
 
 .neonDiv {
   border-radius: 0.4em;
@@ -48,10 +48,8 @@ header {
     color: @colors[secondry];
     font-size: 2.2em;
     font-weight: lighter;
-    background: -webkit-linear-gradient(120deg, @colors[secondry], #0e6ace);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     font-family: @fonts[Comfortaa];
+    .gradientText;
   }
 
   .username {
@@ -251,12 +249,4 @@ main {
       }
     }
   }
-}
-
-#particles-js {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  margin-top: -10vh;
 }
