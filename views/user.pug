@@ -64,8 +64,8 @@ block content
                                 p.repoBio= repo.description ? repo.description : "No Description"
                             div.repoFooter
                                 div
-                                    p= repo.stargazers_count
-                                    p= repo.forks_count
+                                    p!= `${starIcon} ${repo.stargazers_count}`
+                                    p!= `${forkIcon} ${repo.forks_count}`
                                     p= repo.size
                                 div !{`<p class="repoLang" data-color="${repo.languageColor}">${repo.language}</p>`}
             else 
