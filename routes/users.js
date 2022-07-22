@@ -69,6 +69,12 @@ const getPopularRepo = async (reposObj, maxCount) => {
 const getLanguage = async (userRepoObj, maxCount) => {
   let allLanguages = { total: 0 };
 
+  const updateLang = {
+    "SCSS": "SASS",
+    "C++": "CPP",
+    "JADE": "PUG"
+  }
+
   return new Promise((resolve, reject) => {
     Promise.allSettled(
       userRepoObj.slice(0, maxCount).map((repo) => {
@@ -94,7 +100,12 @@ const getLanguage = async (userRepoObj, maxCount) => {
         if (lang != "total") {
           allLanguages[lang] = parseFloat((allLanguages[lang] / allLanguages.total * 100)).toFixed(2);
         }
+        if (updateLang[lang]) {
+          allLanguages[updateLang[lang]] = allLanguages[lang];
+          delete allLanguages[lang];
+        }
       })
+
       delete allLanguages.total;
       resolve(allLanguages)
     })
@@ -199,7 +210,7 @@ router.get('/@:username', async (req, res, next) => {
 
     renderData.popularProjects = await getPopularRepo(userRepos, 6);
     renderData.contributedProject = await getContributedRepo(userPR, 3);
-    // renderData.languages = await getLanguage(userRepos, 6);
+    renderData.languages = await getLanguage(userRepos, 8);
 
     console.log(renderData);
     res.render('user', renderData);

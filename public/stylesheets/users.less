@@ -83,7 +83,15 @@ main {
       background-color: @backgroundColors[tertiary];
     }
 
-    &>.github {
+    .popularLang>div {
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+      align-items: center;
+    }
+
+    &>.github,
+    &>.popularLang {
       display: flex;
       flex-wrap: wrap;
       flex-direction: row;
@@ -96,11 +104,18 @@ main {
         margin: 0.4em;
         padding: 1em;
 
+        .langIcon {
+          width: 1.8em;
+          // filter: grayscale(1);
+          filter: drop-shadow(1px 1px 1px darken(@colors[secondry], 30%));
+        }
+
         p {
           margin: 0;
 
-          &.number {
-            font-size: 1.5em;
+          &.number,
+          &.langPercent {
+            font-size: 1.7em;
             color: @colors[secondry];
             font-family: @fonts[Electrolize];
           }
@@ -109,6 +124,17 @@ main {
             color: darken(@colors[primary], 10%);
             font-size: 0.9em;
           }
+
+          &.langPercent {
+            font-size: 1.3em;
+
+            &::after {
+              content: "%";
+              font-size: 0.6em;
+            }
+          }
+
+
         }
       }
     }
@@ -209,9 +235,18 @@ main {
         }
       }
 
-      &>.github {
+      &>.github,
+      &>.popularLang {
         &>div {
           flex-basis: 23%;
+        }
+      }
+
+      .popularLang>div {
+        justify-content: space-evenly;
+
+        .langIcon {
+          width: 2.5em;
         }
       }
     }

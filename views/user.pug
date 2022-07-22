@@ -36,6 +36,17 @@ block content
                 div
                     p.number= github.organizationsCount
                     p.activity Organizations
+        section 
+            h2 Languages Used 
+            .popularLang
+                each langPercent, key in languages
+                    div 
+                        div.langIconContainer 
+                            img.langIcon(src= `https://cdn.jsdelivr.net/gh/PKief/vscode-material-icon-theme@main/icons/${key.toLowerCase()}.svg`, title= key alt=" " srcset="")
+                        div 
+                            p.langPercent= langPercent
+                            p.activity= key 
+
         section.popularRepo
             h2 Popular Projects
             .repoContainer
@@ -43,7 +54,7 @@ block content
                     div
                         div.repoHeader
                             h3.repoName= repo.name
-                            p.repoBio= repo.description
+                            p.repoBio= repo.description ? repo.description : "No Description"
                         div.repoFooter
                             div
                                 p= repo.stargazers_count
@@ -57,7 +68,7 @@ block content
                     div
                         div.repoHeader
                             h3.repoName= repo.name
-                            p.repoBio= repo.description
+                            p.repoBio= repo.description ? repo.description : "No Description"
                         div.repoFooter
                             div
                                 p= repo.stargazers_count
