@@ -11,7 +11,7 @@ var app = express();
 
 // view engine setup
 app.set('view engine', 'pug');
-app.use(lessMiddleware(path.join(__dirname, 'public'), { once: false,debug:true }));
+app.use(lessMiddleware(path.join(__dirname, 'public'), { once: true, debug: true }));
 
 app.use(logger('dev'));
 app.use(express.json());
