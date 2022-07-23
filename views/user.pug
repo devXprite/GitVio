@@ -6,44 +6,50 @@ block style
 block content
     header
         div
-            img(src= avatar)
+            img(src= avatarUrl)
         div
-            h2.name= name
-            h3.username= username
-            p.bio= bio
+            h2.name= name ? name : login
+            h3.username= login
+            p.bio= bio ? bio : `${login} is a developer on Github with ${stats.repositories} Repositories and ${stats.followers} followers`
     main
         section
             h2 GitHub Activity
             .github
                 div
-                    p.number= github.followers
+                    p.number= stats.followers
                     p.activity Followers
                 div
-                    p.number= github.following
+                    p.number= stats.following
                     p.activity Following
                 div
-                    p.number= github.repo
+                    p.number= stats.repositories
                     p.activity Repositories
                 div
-                    p.number= github.gist
+                    p.number= stats.gists
                     p.activity Gist
                 div
-                    p.number= github.prCount
+                    p.number= stats.organizations
+                    p.activity Organizations
+                div
+                    p.number= stats.sponsoring
+                    p.activity Sponsoring
+                div
+                    p.number= stats.pullRequests
                     p.activity Pull Requests
                 div
-                    p.number= github.issueCount
+                    p.number= stats.issues
                     p.activity Issues
                 div
-                    p.number= github.commitsCount
+                    p.number= stats.commits
                     p.activity Commits
                 div
-                    p.number= github.organizationsCount
-                    p.activity Organizations
+                    p.number= stats.contributedTo
+                    p.activity contributed To
         section 
             h2 Languages Used 
-            if (languages)
+            if (topLanguages)
                 .popularLang
-                    each langPercent, key in languages
+                    each langPercent, key in topLanguages
                         div 
                             div.langIconContainer 
                                 img.langIcon(src= `https://cdn.jsdelivr.net/gh/PKief/vscode-material-icon-theme@main/icons/${key.toLowerCase()}.svg`, title= key alt=" " srcset="")
@@ -55,35 +61,35 @@ block content
 
         section.popularRepo
             h2 Popular Projects
-            if (popularProjects.length > 0)
+            if (popularRepos.length > 0)
                 .repoContainer
-                    each repo in popularProjects
+                    each repo in popularRepos
                         div
                             div.repoHeader
-                                h3.repoName= repo.name
+                                h3.repoName!= `${repoIcon}  ${repo.name}`
                                 p.repoBio= repo.description ? repo.description : "No Description"
                             div.repoFooter
                                 div
-                                    p!= `${starIcon} ${repo.stargazers_count}`
-                                    p!= `${forkIcon} ${repo.forks_count}`
-                                    p= repo.size
+                                    p!= `${starIcon} ${repo.stargazerCount}`
+                                    p!= `${forkIcon} ${repo.forkCount}`
+                                    //- p= repo.diskUsage
                                 div !{`<p class="repoLang" data-color="${repo.languageColor}">${repo.language}</p>`}
             else 
                 p Not enough data                
         section.popularRepo
             h2 Contributed Projects
-            if (contributedProject.length > 0)
+            if (contributedRepos.length > 0)
                 .repoContainer
-                    each repo in contributedProject
+                    each repo in contributedRepos
                         div
                             div.repoHeader
-                                h3.repoName= repo.name
+                                h3.repoName!= `${repoIcon}  ${repo.name}`
                                 p.repoBio= repo.description ? repo.description : "No Description"
                             div.repoFooter
                                 div
-                                    p= repo.stargazers_count
-                                    p= repo.forks_count
-                                    p= repo.size
+                                    p!= `${starIcon} ${repo.stargazerCount}`
+                                    p!= `${forkIcon} ${repo.forkCount}`
+                                    //- p= repo.diskUsage
                                 div !{`<p class="repoLang" data-color="${repo.languageColor}">${repo.language}</p>`}
             else 
                 p Not enough data                 

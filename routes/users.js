@@ -1,155 +1,13 @@
 var _ = require("lodash");
-const byteSize = require('byte-size')
 var createError = require('http-errors');
-const moment = require("moment")
-const dotenv = require("dotenv");
+const moment = require("moment");
 const NodeCache = require("node-cache");
-const { default: axios } = require('axios');
-
-const color = require('../src/json/colors.json');
-
-dotenv.config();
-
-const USERNAME = process.env.USERNAME;
-const PASSWORD = process.env.TOKEN;
-
-axios.defaults.auth = {
-  username: USERNAME,
-  password: PASSWORD
-}
+const main = require("../src/fetchAll");
 
 var express = require('express');
 var router = express.Router();
 
 const cache = new NodeCache({ stdTTL: 60 * 60 * 1 });
-
-const removeForks = (userRepoObj) => {
-  let tmp = [];
-  userRepoObj.forEach(repo => {
-    if (!repo.fork) {
-      tmp.push(repo);
-    }
-  });
-
-  return tmp;
-}
-
-const getLanguageColor = (language) => {
-  try {
-    return color[language]["color"]
-  } catch (error) {
-    console.log(error, language);
-    return null
-  }
-}
-
-const getPopularRepo = async (reposObj, maxCount) => {
-
-  let rerurnData = [];
-  let orderByStars = _.orderBy(reposObj, ["stargazers_count"], ["desc"]);
-
-  for (let i = 0; i < (orderByStars.length > maxCount ? maxCount : orderByStars.length); i++) {
-    let repo = orderByStars[i];
-    if (!repo.fork) {
-      rerurnData.push({
-        name: repo.name,
-        html_url: repo.html_url,
-        language: repo.language,
-        languageColor: getLanguageColor(repo.language),
-        size: `${byteSize(repo.size * 1000)}`,
-        description: repo.description,
-        stargazers_count: repo.stargazers_count,
-        forks_count: repo.forks_count
-      });
-    }
-  }
-  return rerurnData;
-}
-
-const getLanguage = async (userRepoObj, maxCount) => {
-  let allLanguages = { total: 0 };
-
-  const updateLang = {
-    "SCSS": "SASS",
-    "C++": "CPP",
-    "JADE": "PUG"
-  }
-
-  return new Promise((resolve, reject) => {
-    Promise.allSettled(
-      userRepoObj.slice(0, maxCount).map((repo) => {
-        return new Promise((resolve, reject) => {
-          axios.get(repo.languages_url).then((response) => {
-            let responseData = response.data;
-
-            Object.keys(responseData).forEach(language => {
-              let currentLangSize = (allLanguages[language]) ? allLanguages[language] : 0;
-              allLanguages[language] = currentLangSize + parseInt(responseData[language]);
-              allLanguages.total += responseData[language];
-            });
-
-          }).catch((error) => {
-            // do nothing
-          }).then(() => {
-            resolve()
-          })
-        })
-      })
-    ).then(() => {
-      Object.keys(allLanguages).map((lang) => {
-        if (lang != "total") {
-          allLanguages[lang] = parseFloat((allLanguages[lang] / allLanguages.total * 100)).toFixed(2);
-        }
-        if (updateLang[lang]) {
-          allLanguages[updateLang[lang]] = allLanguages[lang];
-          delete allLanguages[lang];
-        }
-      })
-
-      delete allLanguages.total;
-      resolve(allLanguages)
-    })
-  })
-
-
-}
-
-const getContributedRepo = async (issuesObj, maxCount) => {
-
-  let contributedRepoUrls = [];
-  let contributedRepoDetails = [];
-  let maxReposCount = (issuesObj.length > maxCount ? maxCount : issuesObj.length);
-
-  issuesObj.forEach(repo => {
-    if (repo.author_association == "CONTRIBUTOR" && (contributedRepoUrls.length < maxReposCount) && !contributedRepoUrls.includes(repo.repository_url)) {
-      contributedRepoUrls.push(repo.repository_url);
-    }
-  });
-
-  await Promise.allSettled(
-    contributedRepoUrls.map(
-      async (url) => {
-        let repo = (await axios(url)).data;
-        contributedRepoDetails.push({
-          name: repo.name,
-          html_url: repo.html_url,
-          language: repo.language,
-          languageColor: getLanguageColor(repo.language),
-          size: `${byteSize(repo.size * 1000)}`,
-          description: repo.description,
-          stargazers_count: repo.stargazers_count,
-          forks_count: repo.forks_count
-        })
-      }
-    )
-  );
-
-  return new Promise(
-    (resolve, reject) => {
-      resolve(contributedRepoDetails);
-    }
-  )
-}
 
 router.get('/@:username', async (req, res, next) => {
   var username = req.params.username;
@@ -171,50 +29,12 @@ router.get('/@:username', async (req, res, next) => {
   }
 
   try {
-    const userObj = (await axios(`https://api.github.com/users/${username}`)).data;
-    const userRepos = removeForks((await axios(`https://api.github.com/users/${username}/repos?per_page=100`)).data);
-    const userPR = removeForks(((await axios(`https://api.github.com/search/issues?q=type:pr+is:merged+author:${username}&per_page=100`)).data).items);
-
-    Object.assign(renderData, {
-      title: `${username}'s Portfolio`,
-      name: userObj.name || userObj.login,
-      username: userObj.login,
-      website: userObj.blog,
-      location: userObj.location,
-      bio: userObj.bio,
-      twitter_username: userObj.twitter_username,
-      avatar: userObj.avatar_url,
-      hireable: userObj.hireable,
-    });
-
-    renderData.github.following = userObj.following || 0;
-    renderData.github.followers = userObj.followers || 0;
-    renderData.github.repo = userObj.public_repos || 0;
-    renderData.github.gist = userObj.public_gists || 0;
-
-    await Promise.allSettled([
-      axios.get(`https://api.github.com/search/issues?q=type:pr+author:${username}&per_page=1`),
-      axios.get(`https://api.github.com/search/issues?q=type:issue+author:${username}&per_page=1`),
-      axios.get(`https://api.github.com/search/commits?q=author:${username}&per_page=1`),
-      axios.get(`https://api.github.com/users/${username}/orgs?per_page=100`),
-    ])
-      .then(async ([res1, res2, res3, res4]) => {
-        renderData.github.prCount = res1.value.data.total_count || 0;
-        renderData.github.issueCount = res2.value.data.total_count || 0;
-        renderData.github.commitsCount = res3.value.data.total_count || 0;
-        renderData.github.organizationsCount = (res4.value.data).length || 0;
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    renderData.popularProjects = await getPopularRepo(userRepos, 6);
-    renderData.contributedProject = await getContributedRepo(userPR, 3);
-    renderData.languages = await getLanguage(userRepos, 8);
-
+    
+    renderData = await main(username);
     console.log(renderData);
     res.render('user', renderData);
     cache.set(username, renderData);
+
   } catch (error) {
 
     if (error.code == "ERR_BAD_REQUEST") {

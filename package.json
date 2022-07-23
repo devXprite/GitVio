@@ -6,6 +6,7 @@
     "start": "node ./bin/www.js"
   },
   "dependencies": {
+    "@octokit/graphql": "^5.0.0",
     "axios": "^0.27.2",
     "byte-size": "^8.1.0",
     "debug": "~2.6.9",
