@@ -14,6 +14,10 @@
    }
 }
 
+a {
+   text-decoration: none;
+}
+
 header {
    display: flex;
    flex-direction: column;
@@ -25,8 +29,8 @@ header {
    img {
       display: block;
       margin: auto;
-      width: 180px;
-      margin-bottom: 7vh;
+      width: 150px;
+      margin-bottom: 2vh;
       border-radius: 50%;
       border: darken(@colors[imgBorder], 10%) 3px solid;
       box-shadow: @colors[imgBorder] 0px 0px 8px;
@@ -34,10 +38,28 @@ header {
 
       &:hover {
          transform: scale(1.05);
-         box-shadow: @colors[imgBorder] 0px 0px 12px 4px;
+         box-shadow: @colors[imgBorder] 0px 0px 8px 1px;
       }
    }
 
+   .socialContainer {
+      display: flex;
+      justify-content: space-evenly;
+      flex-direction: row;
+      align-items: center;
+      margin: 2vh auto 4vh auto;
+
+      .svgIcons {
+         width: 1.5em;
+         height: $width;
+         fill: @colors[primary];
+
+         &:hover{
+            fill: @colors[secondry];
+            transform: scale(1.1);
+         }
+      }
+   }
 
    .username,
    .name {
@@ -80,12 +102,12 @@ main {
          margin: 0 0 0.5em 0;
          background-color: @backgroundColors[tertiary];
 
-         &:hover{
+         &:hover {
             color: @colors[secondry];
          }
       }
 
-      &>p{
+      &>p {
          padding-left: 1em;
       }
 
@@ -164,8 +186,8 @@ main {
             flex-direction: column;
             justify-content: space-between;
 
-            &:hover{
-               .svgIcons{
+            &:hover {
+               .svgIcons {
                   transform: rotateY(180deg);
                }
             }
@@ -219,8 +241,16 @@ main {
       flex-direction: row;
       width: 80vw;
 
+      .socialContainer {
+         // margin: 4vh auto ;
+         .svgIcons{
+            width: 1.7em;
+            height: 1.7em;
+         }
+      }
+
       img {
-         width: 220px;
+         width: 180px;
       }
 
       .name {

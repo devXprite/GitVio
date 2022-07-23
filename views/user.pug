@@ -7,9 +7,19 @@ block content
     header
         div
             img(src= avatarUrl)
+            div.socialContainer
+                if location
+                    a(href= `https://www.google.com/maps/place/${location}`)!= locationIcon
+                if websiteUrl
+                    a(href= websiteUrl)!= linkIcon 
+                if email 
+                    a(href= `mailto:${email}`)!= emailIcon 
+                if twitterUsername
+                    a(href= `//twitter.com/${twitterUsername}`)!= twitterIcon
         div
             h2.name= name ? name : login
-            h3.username= login
+            a(href= `https://github.com/${login}`) 
+                h3.username= login
             p.bio= bio ? bio : `${login} is a developer on Github with ${stats.repositories} Repositories and ${stats.followers} followers`
     main
         section
@@ -66,7 +76,8 @@ block content
                     each repo in popularRepos
                         div
                             div.repoHeader
-                                h3.repoName!= `${repoIcon}  ${repo.name}`
+                                a(href= repo.url) 
+                                    h3.repoName!= `${repoIcon}  ${repo.name}`
                                 p.repoBio= repo.description ? repo.description : "No Description"
                             div.repoFooter
                                 div
@@ -83,7 +94,8 @@ block content
                     each repo in contributedRepos
                         div
                             div.repoHeader
-                                h3.repoName!= `${repoIcon}  ${repo.name}`
+                                a(href= repo.url) 
+                                    h3.repoName!= `${repoIcon}  ${repo.name}`
                                 p.repoBio= repo.description ? repo.description : "No Description"
                             div.repoFooter
                                 div
