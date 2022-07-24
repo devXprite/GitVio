@@ -3,6 +3,11 @@ extends layout
 block style 
     link(rel="stylesheet" href="/stylesheets/users.css")
 
+block script 
+    script(src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js")
+    script(src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js")
+    script(src="javascripts/user.js")
+
 block content
     header
         div
@@ -104,4 +109,9 @@ block content
                                     //- p= repo.diskUsage
                                 div !{`<p class="repoLang" data-color="${repo.languageColor}">${repo.language}</p>`}
             else 
-                p Not enough data                 
+                p Not enough data         
+        section.contributionCalendar
+            h2 Contribution Calendar 
+            .calendarContainer
+                each contribution in contributionCalendar
+                    span.contributionBox(data-level= contribution.contributionLevel, data-date=contribution.date, data-count= contribution.contributionCount)

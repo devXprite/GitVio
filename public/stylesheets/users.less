@@ -54,7 +54,7 @@ header {
          height: $width;
          fill: @colors[primary];
 
-         &:hover{
+         &:hover {
             fill: @colors[secondry];
             transform: scale(1.1);
          }
@@ -101,6 +101,7 @@ main {
          padding: 0.5em;
          margin: 0 0 0.5em 0;
          background-color: @backgroundColors[tertiary];
+         transition: all 0.5s;
 
          &:hover {
             color: @colors[secondry];
@@ -231,6 +232,53 @@ main {
             }
          }
       }
+
+      &.contributionCalendar {
+         .calendarContainer {
+            padding: 0.8em;
+            display: grid;
+            // grid-template-columns: repeat(53, 1fr);
+            grid-template-rows: repeat(7, 1fr);
+            grid-column-gap: 2px;
+            grid-row-gap: 2px;
+            grid-auto-flow: column;
+
+            .contributionBox {
+               width: 0.6em;
+               height: $width;
+               display: inline-block;
+               border-radius: 0.15em;
+               border: 1px darken(@colors[secondry], 35%) solid;
+
+               &:hover {
+                  transform: scale(1.1);
+                  border: 1px solid @colors[secondry];
+               }
+
+               &[data-level="NONE"] {
+                  background-color: lighten(@backgroundColors[tertiary], 10%);
+
+               }
+
+               &[data-level="FIRST_QUARTILE"] {
+                  background-color: darken(@colors[secondry], 25%);
+               }
+
+               &[data-level="SECOND_QUARTILE"] {
+                  background-color: darken(@colors[secondry], 16%);
+               }
+
+               &[data-level="THIRD_QUARTILE"] {
+                  background-color: darken(@colors[secondry], 8%);
+               }
+
+               &[data-level="FOURTH_QUARTILE"] {
+                  background-color: @colors[secondry];
+               }
+
+            }
+         }
+      }
    }
 }
 
@@ -242,8 +290,9 @@ main {
       width: 80vw;
 
       .socialContainer {
+
          // margin: 4vh auto ;
-         .svgIcons{
+         .svgIcons {
             width: 1.7em;
             height: 1.7em;
          }
@@ -299,6 +348,29 @@ main {
                width: 2.5em;
             }
          }
+
+         &.contributionCalendar {
+            .calendarContainer {
+               padding: 2em;
+               grid-row-gap: 0.3em;
+
+               .contributionBox {
+                  width: 70%;
+                  border: none;
+                  box-shadow: #000 1px 1px 2px;
+
+               }
+            }
+         }
       }
    }
+}
+
+.tippy-box[data-theme~='neon'] {
+   background-color: @backgroundColors[tertiary];
+   color: @colors[secondry];
+   box-shadow: 2px 2px 2px #000;
+   .tippy-svg-arrow {
+      fill:@backgroundColors[tertiary] !important;
+    }
 }
