@@ -16,7 +16,7 @@ block content
                 if location
                     a(href= `https://www.google.com/maps/place/${location}`)!= locationIcon
                 if websiteUrl
-                    a(href= websiteUrl)!= linkIcon 
+                    a(href= `//${websiteUrl}`)!= linkIcon 
                 if email 
                     a(href= `mailto:${email}`)!= emailIcon 
                 if twitterUsername
