@@ -1,6 +1,10 @@
 extends layout
 
+block style 
+  link(rel="stylesheet" href="/stylesheets/error.css")
+
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  main
+    h1.status= status
+    h2.message= message
+    a.back(href="/" , target="_self") Go to Home? 
