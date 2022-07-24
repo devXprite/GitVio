@@ -11,7 +11,11 @@ const app = express();
 
 // view engine setup
 app.set("view engine", "pug");
-app.use(lessMiddleware(path.join(__dirname, "public"), { debug: true, cacheFile: "lessCache.json" }));
+
+// don't use less middleware in Vercel Production
+if (process.env.VERCEL_ENV !== "production") {
+  app.use(lessMiddleware(path.join(__dirname, "public"), { debug: true }));
+}
 
 app.use(logger("dev"));
 app.use(express.json());
