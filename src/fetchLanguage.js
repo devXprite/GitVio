@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable max-len */
 const fetcher = require("./fetcher");
 
 const query = `
@@ -18,42 +20,41 @@ query userInfo($login: String!) {
     }
   }
 }
-`
+`;
 const updateLang = {
-    "SCSS": "SASS",
-    "C++": "CPP",
-    "JADE": "PUG"
+  SCSS: "SASS",
+  "C++": "CPP",
+  JADE: "PUG",
 };
 
 const fetchLanguage = async (username) => {
+  const allLanguages = { total: 0 };
 
-    let allLanguages = { total: 0 };
-
-    return new Promise((resolve, reject) => {
-        fetcher(query, username).then((response) => {
-            response.user.repositories.nodes.forEach(repo => {
-                repo.languages.edges.forEach(lang => {
-                    let currentLang = lang.node.name;
-                    let currentLangSize = (allLanguages[currentLang]) ? allLanguages[currentLang] : 0;
-                    allLanguages[currentLang] = currentLangSize + lang.size;
-                    allLanguages.total += lang.size;
-                });
-            });
-            Object.keys(allLanguages).map((lang) => {
-                if (lang != "total") {
-                    allLanguages[lang] = parseFloat((allLanguages[lang] / allLanguages.total * 100)).toFixed(2);
-                }
-                if (updateLang[lang]) {
-                    allLanguages[updateLang[lang]] = allLanguages[lang];
-                    delete allLanguages[lang];
-                }
-            });
-            delete allLanguages.total;
-            resolve(allLanguages)
-        }).catch((error) => {
-            reject(error)
-        })
-    })
+  return new Promise((resolve, reject) => {
+    fetcher(query, username).then((response) => {
+      response.user.repositories.nodes.forEach((repo) => {
+        repo.languages.edges.forEach((lang) => {
+          const currentLang = lang.node.name;
+          const currentLangSize = (allLanguages[currentLang]) ? allLanguages[currentLang] : 0;
+          allLanguages[currentLang] = currentLangSize + lang.size;
+          allLanguages.total += lang.size;
+        });
+      });
+      Object.keys(allLanguages).map((lang) => {
+        if (lang !== "total") {
+          allLanguages[lang] = parseFloat(((allLanguages[lang] / allLanguages.total) * 100)).toFixed(2);
+        }
+        if (updateLang[lang]) {
+          allLanguages[updateLang[lang]] = allLanguages[lang];
+          delete allLanguages[lang];
+        }
+      });
+      delete allLanguages.total;
+      resolve(allLanguages);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 };
 
 module.exports = fetchLanguage;

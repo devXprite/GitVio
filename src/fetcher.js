@@ -3,24 +3,22 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const TOKEN = process.env.TOKEN;
+const { TOKEN } = process.env;
 
-const fetcher = async (query, login, max = 10) => {
-    return new Promise((resolve, reject) => {
-        graphql(query,
-            {
-                login: login,
-                headers: {
-                    'Authorization': `Bearer ${TOKEN}`,
-                },
-            }
-        ).then((response) => {
-            resolve(response);
-        }).catch((error) => {
-            reject(error)
-        })
-    })
-}
-
+const fetcher = async (query, login) => new Promise((resolve, reject) => {
+  graphql(
+    query,
+    {
+      login,
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+      },
+    },
+  ).then((response) => {
+    resolve(response);
+  }).catch((error) => {
+    reject(error);
+  });
+});
 
 module.exports = fetcher;

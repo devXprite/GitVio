@@ -1,0 +1,48 @@
+@import "./_layout.less";
+
+main {
+    text-align: center;
+    min-height: 90vh;
+    font-family: @fonts[Ubuntu];
+
+    .status {
+        .gradientText;
+        font-family: @fonts[Electrolize];
+        display: inline-block;
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .back{
+        color: @colors[secondry];
+        text-decoration: none;
+        &:hover{
+            color: darken(@colors[secondry],25%);
+        }
+    }
+
+    @media @mobile {
+        .status {
+            margin-top: 25vh;
+            font-size: 8em;
+        }
+        .message{
+            font-size: 2em;
+        }
+        .back{
+            font-size: 1.2em;
+        }
+    }
+
+    @media @desktop {
+        .status {
+            font-size: 12em;
+        }
+        .message{
+            font-size: 3em;
+        }
+        .back{
+            font-size: 1.5em;
+        }
+    }
+}

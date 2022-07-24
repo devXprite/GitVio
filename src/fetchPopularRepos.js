@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const fetcher = require("./fetcher");
 
 const query = `
@@ -30,21 +31,21 @@ const query = `
 `;
 
 const fetchPopularRepos = (username) => {
-    let popularProject = [];
-    return new Promise((resolve, reject) => {
-        fetcher(query, username).then((response) => {
-            let edges = response.user.repositories.edges;
-            edges.forEach(edge => {
-                edge.node["language"] = (edge.node.primaryLanguage) ? edge.node.primaryLanguage.name : null;
-                edge.node["languageColor"] = (edge.node.primaryLanguage) ? edge.node.primaryLanguage.color : null;
-                delete edge.node.primaryLanguage;
-                popularProject.push(edge.node);
-            });
-            resolve(popularProject);
-        }).catch((error) => {
-            reject(error)
-        })
-    })
-
-}
+  const popularProject = [];
+  return new Promise((resolve, reject) => {
+    fetcher(query, username).then((response) => {
+      const { edges } = response.user.repositories;
+      edges.forEach((edge) => {
+        edge.node.language = (edge.node.primaryLanguage) ? edge.node.primaryLanguage.name : null;
+        edge.node.languageColor = (edge.node.primaryLanguage)
+          ? edge.node.primaryLanguage.color : null;
+        delete edge.node.primaryLanguage;
+        popularProject.push(edge.node);
+      });
+      resolve(popularProject);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
+};
 module.exports = fetchPopularRepos;

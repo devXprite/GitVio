@@ -48,27 +48,27 @@ query userInfo($login: String!) {
 `;
 
 const fetchStats = (username) => {
-    let stats = {};
-    return new Promise((resolve, reject) => {
-        fetcher(query, username).then((response) => {
-            let data = response.user;
-            stats.following = data.following.totalCount;
-            stats.followers = data.followers.totalCount;
-            stats.gists = data.gists.totalCount;
-            stats.commits = data.contributionsCollection.totalCommitContributions;
-            stats.contributedTo = data.repositoriesContributedTo.totalCount;
-            stats.pullRequests = data.pullRequests.totalCount;
-            stats.issues = data.issues.totalCount;
-            stats.repositories = data.repositories.totalCount;
-            stats.organizations = data.organizations.totalCount;
-            stats.sponsoring = data.sponsoring.totalCount;
-            stats.createdAt = data.createdAt
-            stats.updatedAt = data.updatedAt;
-            resolve(stats);
-        }).catch((error) => {
-            reject(error)
-        })
-    })
-}
+  const stats = {};
+  return new Promise((resolve, reject) => {
+    fetcher(query, username).then((response) => {
+      const data = response.user;
+      stats.following = data.following.totalCount;
+      stats.followers = data.followers.totalCount;
+      stats.gists = data.gists.totalCount;
+      stats.commits = data.contributionsCollection.totalCommitContributions;
+      stats.contributedTo = data.repositoriesContributedTo.totalCount;
+      stats.pullRequests = data.pullRequests.totalCount;
+      stats.issues = data.issues.totalCount;
+      stats.repositories = data.repositories.totalCount;
+      stats.organizations = data.organizations.totalCount;
+      stats.sponsoring = data.sponsoring.totalCount;
+      stats.createdAt = data.createdAt;
+      stats.updatedAt = data.updatedAt;
+      resolve(stats);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
+};
 
 module.exports = fetchStats;

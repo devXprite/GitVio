@@ -19,23 +19,21 @@ query userInfo($login: String!) {
     }
   }`;
 
+const fetchContributionCalendar = async (username) => new Promise((resolve, reject) => {
+  const contributionCalendar = [];
+  fetcher(query, username).then((response) => {
+    const { weeks } = response.user.contributionsCollection.contributionCalendar;
 
-const fetchContributionCalendar = async (username) => {
-    let contributionCalendar = [];
+    weeks.forEach((week) => {
+      week.contributionDays.forEach((day) => {
+        contributionCalendar.push(day);
+      });
+    });
+  }).then(() => {
+    resolve(contributionCalendar);
+  }).catch((error) => {
+    reject(error);
+  });
+});
 
-    return new Promise((resolve, reject) => {
-        fetcher(query, username).then((response) => {
-            var weeks = response.user.contributionsCollection.contributionCalendar.weeks;
-
-            weeks.forEach(week => {
-                week.contributionDays.forEach(day => {
-                    contributionCalendar.push(day)
-                });
-            });
-        }).then(()=>{
-            resolve(contributionCalendar)
-        })
-    })
-}
-
-module.exports = fetchContributionCalendar
+module.exports = fetchContributionCalendar;

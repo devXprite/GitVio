@@ -28,33 +28,30 @@ query userInfo($login: String!) {
   }
 `;
 
-const main = async (username) => {
+const fetchAll = async (username) => new Promise((resolve, reject) => {
+  const mainData = {};
 
-    let mainData = {};
-    return new Promise((resolve, reject) => {
-
-        Promise.allSettled([
-            fetcher(query, username),
-            fetchContribution(username),
-            fetchPopularRepos(username),
-            fetchStats(username),
-            fetchLanguage(username),
-            fetchContributionCalendar(username)
-        ])
-            .then(async ([basic, res1, res2, res3, res4, res5]) => {
-                Object.assign(mainData, basic.value.user)
-                mainData.contributedRepos = res1.value;
-                mainData.popularRepos = res2.value;
-                mainData.stats = res3.value;
-                mainData.topLanguages = res4.value;
-                mainData.contributionCalendar = res5.value;
-            })
-            .catch(error => {
-                reject(error);
-            }).then(() => {
-                resolve(mainData)
-            })
+  Promise.allSettled([
+    fetcher(query, username),
+    fetchContribution(username),
+    fetchPopularRepos(username),
+    fetchStats(username),
+    fetchLanguage(username),
+    fetchContributionCalendar(username),
+  ])
+    .then(async ([basic, contribution, popularRepos, stats, language, contributionCalendar]) => {
+      Object.assign(mainData, basic.value.user);
+      mainData.contributedRepos = contribution.value;
+      mainData.popularRepos = popularRepos.value;
+      mainData.stats = stats.value;
+      mainData.topLanguages = language.value;
+      mainData.contributionCalendar = contributionCalendar.value;
     })
-}
+    .catch((error) => {
+      reject(error);
+    }).then(() => {
+      resolve(mainData);
+    });
+});
 
-module.exports = main;
+module.exports = fetchAll;

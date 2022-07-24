@@ -1,9 +1,11 @@
 {
-  "name": "portfolio-genretor",
+  "name": "GitVio",
   "version": "0.0.0",
   "main": "bin/www.js",
   "scripts": {
-    "start": "node ./bin/www.js"
+    "start": "node ./bin/www.js",
+    "lint": "eslint . --ext .js",
+    "link:fix": "eslint . --ext .js --fix"
   },
   "dependencies": {
     "@octokit/graphql": "^5.0.0",
@@ -19,5 +21,10 @@
     "morgan": "^1.10.0",
     "node-cache": "^5.1.2",
     "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.20.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
   }
 }
