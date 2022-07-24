@@ -1,6 +1,6 @@
 // const _ = require("lodash");
 const createError = require("http-errors");
-const moment = require("moment");
+// const moment = require("moment");
 const NodeCache = require("node-cache");
 const express = require("express");
 const fetchAll = require("../src/fetchAll");
@@ -34,15 +34,7 @@ router.get("/@:username", async (req, res, next) => {
     res.render("user", renderData);
     cache.set(username, renderData);
   } catch (error) {
-    if (error.code === "ERR_BAD_REQUEST") {
-      const limitReset = moment(error.response.headers["x-ratelimit-reset"] * 1000).toNow(true);
-      next(createError(529, `Try again in ${limitReset}`));
-    } if (error.code === "ENOTFOUND") {
-      next(createError(404, "User not found!"));
-    } else {
-      next(createError(500));
-    }
-
+    next(createError(500));
     console.log(error);
   }
 });

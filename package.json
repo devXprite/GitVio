@@ -1,11 +1,22 @@
 {
   "name": "GitVio",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "bin/www.js",
   "scripts": {
     "start": "node ./bin/www.js",
     "lint": "eslint . --ext .js",
     "link:fix": "eslint . --ext .js --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devXprite/gitvio.git"
+  },
+  "author": {
+    "name": "DevXprite",
+    "email": "devXprite@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/devXprite/youtube-lookup/issues"
   },
   "dependencies": {
     "@octokit/graphql": "^5.0.0",
