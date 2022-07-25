@@ -1,8 +1,10 @@
-const createError = require("http-errors");
-const express = require("express");
 const path = require("path");
-const lessMiddleware = require("less-middleware");
+const cors = require("cors");
 const logger = require("morgan");
+const express = require("express");
+const createError = require("http-errors");
+const compression = require("compression");
+const lessMiddleware = require("less-middleware");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -17,7 +19,9 @@ if (process.env.VERCEL_ENV !== "production") {
   app.use(lessMiddleware(path.join(__dirname, "public"), { debug: true }));
 }
 
+app.use(cors());
 app.use(logger("dev"));
+app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.set("views", path.join(__dirname, "views"));

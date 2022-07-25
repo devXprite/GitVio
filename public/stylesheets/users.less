@@ -31,6 +31,7 @@ header {
       display: block;
       margin: auto;
       width: 150px;
+      height: $width;
       margin-bottom: 2vh;
       border-radius: 50%;
       border: darken(@colors[imgBorder], 10%) 3px solid;
@@ -137,6 +138,7 @@ main {
             .langIcon {
                transition: all 0.3s;
                width: 1.8em;
+               height: $width;
                filter: drop-shadow(1px 1px 1px darken(@colors[secondry], 30%));
             }
 
@@ -301,6 +303,7 @@ main {
 
       img {
          width: 180px;
+         height: $width;
       }
 
       .name {
@@ -347,6 +350,7 @@ main {
 
             .langIcon {
                width: 2.5em;
+               height: $width;
             }
          }
 
@@ -371,7 +375,8 @@ main {
    background-color: @backgroundColors[tertiary];
    color: @colors[secondry];
    box-shadow: 2px 2px 2px #000;
+
    .tippy-svg-arrow {
-      fill:@backgroundColors[tertiary] !important;
-    }
+      fill: @backgroundColors[tertiary] !important;
+   }
 }

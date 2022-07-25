@@ -9,7 +9,7 @@ const query = `
 query userInfo($login: String!) {
     user(login: $login) {
       login
-      avatarUrl(size: 300)
+      avatarUrl(size: 200)
       bio
       company
       id
