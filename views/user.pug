@@ -21,6 +21,8 @@ block content
                     a(href= `mailto:${email}` title= email)!= emailIcon 
                 if twitterUsername
                     a(href= `//twitter.com/${twitterUsername}` title= twitterUsername)!= twitterIcon
+                if isPro
+                    span.label Pro
         div
             h2.name= name ? name : login
             a(href= `https://github.com/${login}`) 
@@ -67,7 +69,7 @@ block content
                     each langPercent, key in topLanguages
                         div 
                             div.langIconContainer 
-                                img.langIcon(src= `https://cdn.jsdelivr.net/gh/PKief/vscode-material-icon-theme@main/icons/${key.toLowerCase()}.svg`, title= key alt= key srcset="")
+                                img.langIcon(src= `https://cdn.jsdelivr.net/gh/PKief/vscode-material-icon-theme@main/icons/${key.toLowerCase()}.svg`)
                             div 
                                 p.langPercent= langPercent
                                 p.activity= key
@@ -114,4 +116,4 @@ block content
             h2 Contribution Calendar 
             .calendarContainer
                 each contribution in contributionCalendar
-                    span.contributionBox(data-level= contribution.contributionLevel, data-date=contribution.date, data-count= contribution.contributionCount)
+                    span.contributionBox(data-level= contribution.contributionLevel, data-tippy-content= `${contribution.contributionCount} contributions on ${contribution.date}`)

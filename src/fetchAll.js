@@ -24,6 +24,7 @@ query userInfo($login: String!) {
       name
       twitterUsername
       websiteUrl
+      email
     }
   }
 `;
