@@ -2,9 +2,9 @@
 
 <br />
 <div align="center">
-  <!-- <a href="https://github.com/devXprite/gitvio">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a> -->
+  <a href="https://gitvio.vercel.app/">
+    <img src="./_includes/logo.png" alt="Logo" width="150">
+  </a>
 
 <h2 align="center">GitVio</h2>
 
@@ -26,7 +26,8 @@
 
 [![GitVio][product-screenshot]](https://gitvio.vercel.app/)
 
-Getting your Github profile under a single page in a resume type format.
+Getting your Github profile under a single page in a resume type format.  
+
 Your profile is accessible at https://gitvio.vervel.app/@YOUR_USERNAME
 
 <p align="right">(<a href="#top">back to top</a>)</p>
