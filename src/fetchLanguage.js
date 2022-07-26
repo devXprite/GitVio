@@ -25,6 +25,7 @@ const updateLang = {
   SCSS: "SASS",
   "C++": "CPP",
   JADE: "PUG",
+  "C#": "C Sharp",
 };
 
 const fetchLanguage = async (username) => {
