@@ -17,9 +17,4 @@ block content
         circle.ci2(cx='5' cy='50' r='4')
         circle.ci1(cx='95' cy='50' r='4')
   script.
-    $("#form").submit((e) => {
-    e.preventDefault();
-    window.location.href = `@${$("#form input[type=\"username\"]").val()}`;
-    $("main").hide();
-    $("#loader").fadeIn();
-    });
+    $("#form").submit((e) => { e.preventDefault(); window.location.href = `@${$("#form input[type=\"username\"]").val()}`; $("main").hide(); $("#loader").fadeIn(); });

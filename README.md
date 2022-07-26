@@ -24,9 +24,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![GitVio][product-screenshot]](https://github.com/devXprite/gitvio)
+[![GitVio][product-screenshot]](https://gitvio.vercel.app/)
 
 Getting your Github profile under a single page in a resume type format.
+Your profile is accessible at https://gitvio.vervel.app/@YOUR_USERNAME
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

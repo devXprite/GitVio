@@ -16,7 +16,7 @@ block content
                 if location
                     a(href= `https://www.google.com/maps/place/${location}` title= location)!= locationIcon
                 if websiteUrl
-                    a(href= `//${websiteUrl}` title= websiteUrl)!= linkIcon 
+                    a(href= ((websiteUrl.startsWith("http")) ? websiteUrl : `http://${websiteUrl}`) title= websiteUrl)!= linkIcon 
                 if email 
                     a(href= `mailto:${email}` title= email)!= emailIcon 
                 if twitterUsername
@@ -30,7 +30,7 @@ block content
             p.bio= bio ? bio : `${login} is a developer on Github with ${stats.repositories} Repositories and ${stats.followers} followers`
     main
         section
-            h2 GitHub Activity
+            h2 GitHub Stats
             .github
                 div
                     p.number= stats.followers
