@@ -30,10 +30,16 @@ query userInfo($login: String!) {
         totalCount
       }
       repositories(
-        first: 1
+        first: 100
         ownerAffiliations: OWNER
+        orderBy: {field: STARGAZERS, direction: DESC}
       ) {
         totalCount
+        nodes {
+          stargazers {
+            totalCount
+          }
+        }
       }
       organizations(first:1){
         totalCount
@@ -64,6 +70,8 @@ const fetchStats = (username) => {
       stats.sponsoring = data.sponsoring.totalCount;
       stats.createdAt = data.createdAt;
       stats.updatedAt = data.updatedAt;
+      // eslint-disable-next-line max-len
+      stats.totalStars = data.repositories.nodes.reduce((total, current) => total + current.stargazers.totalCount, 0);
       resolve(stats);
     }).catch((error) => {
       reject(error);
