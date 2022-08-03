@@ -1,3 +1,14 @@
+/* eslint-disable no-undef */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-expressions */
+
+function padZero(str, len) {
+  len = len || 2;
+  const zeros = new Array(len).join("0");
+  return (zeros + str).slice(-len);
+}
+
 function invertColor(hex, bw) {
   if (hex.indexOf("#") === 0) {
     hex = hex.slice(1);
@@ -22,12 +33,6 @@ function invertColor(hex, bw) {
   b = (255 - b).toString(16);
 
   return `#${padZero(r)}${padZero(g)}${padZero(b)}`;
-}
-
-function padZero(str, len) {
-  len = len || 2;
-  const zeros = new Array(len).join("0");
-  return (zeros + str).slice(-len);
 }
 
 document.querySelectorAll("p.repoLang").forEach((e) => {
@@ -60,4 +65,26 @@ $("img.langIcon").on("error", async function () {
 
 tippy(".contributionBox", {
   theme: "neon",
+});
+
+const statsSelector = $(".number");
+const langSelector = $(".langPercent");
+
+statsSelector.each((i) => {
+  const value = $(statsSelector[i]).html();
+  const countAnimation = new countUp.CountUp(statsSelector[i], value, {
+    duration: 3,
+    useGrouping: true,
+  });
+  countAnimation.start();
+});
+
+langSelector.each((i) => {
+  const value = $(langSelector[i]).html();
+  const countAnimation = new countUp.CountUp(langSelector[i], value, {
+    duration: 3,
+    useGrouping: false,
+    decimalPlaces: 2,
+  });
+  countAnimation.start();
 });
