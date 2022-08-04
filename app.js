@@ -15,7 +15,7 @@ const app = express();
 app.set("view engine", "pug");
 
 // don't use less middleware in Vercel Production
-if (process.env.VERCEL_ENV !== "production") {
+if (process.env.VERCEL_ENV !== "production" && process.env.VERCEL_ENV !== "preview") {
   app.use(lessMiddleware(path.join(__dirname, "public"), { debug: true }));
 }
 

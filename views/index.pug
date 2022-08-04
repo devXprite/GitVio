@@ -1,20 +1,37 @@
 extends layout
 
 block style 
-  link(rel="stylesheet" href="/stylesheets/index.css")
+    link(rel="stylesheet" href="/stylesheets/index.css")
 
 block content
-  main 
-    h1= title
-    p= description
-    form#form(action="")
-      input(type="username" placeholder="Your Github Username") 
-      button(type="submit")!= searchIcon
-  #loader
-    svg.loader(viewBox='0 0 100 100')
-      g.points
-        circle.ciw(cx='50' cy='50' r='50' fill='#10ebe5')
-        circle.ci2(cx='5' cy='50' r='4')
-        circle.ci1(cx='95' cy='50' r='4')
-  script.
-    $("#form").submit((e) => { e.preventDefault(); window.location.href = `@${$("#form input[type=\"username\"]").val()}`; $("main").hide(); $("#loader").fadeIn(); });
+    main 
+        h1= title
+        p= description
+        form#form(action="")
+            input(type="username" placeholder="Your Github Username") 
+            button(type="submit")!= searchIcon
+        if (recentProfiles.length > 0)
+            #recentProfiles 
+                h2 Recent Profiles
+                .container 
+                    each profile in recentProfiles
+                        .profile 
+                            div
+                                img(src= profile.avatarUrl)
+                            div.details
+                                div
+                                    a(href=`/@${profile.login}`)
+                                        p.name= profile.login 
+                                div.sub
+                                    p= `${profile.followers} Followers`
+                                    p= `${profile.following} Follwoing`
+
+    #loader
+        svg.loader(viewBox='0 0 100 100')
+            g.points
+                circle.ciw(cx='50' cy='50' r='50' fill='#10ebe5')
+                circle.ci2(cx='5' cy='50' r='4')
+                circle.ci1(cx='95' cy='50' r='4')
+
+    script.
+        $("#form").submit((e) => { e.preventDefault(); window.location.href = `@${$("#form input[type=\"username\"]").val()}`; $("main").hide(); $("#loader").fadeIn(); }); 
