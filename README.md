@@ -1,16 +1,19 @@
 <div id="top"></div>
 
-<br />
 <div align="center">
   <a href="https://gitvio.vercel.app/">
-    <img src="./_includes/logo.png" alt="Logo" width="150">
+    <img src="./_includes/logo.png" alt="Logo" width="120">
   </a>
 
 <h2 align="center">GitVio</h2>
 
   <p align="center">
-    Create better profile from your GitHub
+    Generate beautiful portfolios from your GitHub profile
     <br />
+    <a href="https://github.com/devXprite/GitVio/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/devXprite/GitVio"></a>
+    <a href="https://github.com/devXprite/GitVio/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/devXprite/GitVio"></a>
+    <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/devXprite/GitVio">
+    <a href="https://github.com/devXprite/GitVio/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/devXprite/GitVio"></a>
     <br />
     <a href="https://gitvio.vercel.app/">View Demo</a>
     ·
@@ -24,7 +27,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![GitVio][product-screenshot]](https://gitvio.vercel.app/)
+[![GitVio](_includes/desktop.png)](https://gitvio.vercel.app/)
 
 Getting your Github profile under a single page in a resume type format.  
 
@@ -87,8 +90,6 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [ ] Github competition between two users
 - [x] Contribution Calendar
 
-See the [open issues](https://github.com/devXprite/gitvio/issues) for a full list of proposed features (and known issues).
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -116,30 +117,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
-<!-- CONTACT -->
-## Contact
-
-- **Email :** devXprite@gmail.com  
-- **Twitter :** [@devXprite](https://twitter.com/devxprite)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- Related -->
-## Related
-
-* [GitHub resume generator](https://resume.github.io/)
-* [GhUser](https://ghuser.io/)
-* [GitSetGo](https://github.com/garimasingh128/gitsetgo)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+<!-- MARKDOWN LINKS & IMAGES
 [contributors-shield]: https://img.shields.io/github/contributors/devXprite/gitvio.svg?style=for-the-badge
 [contributors-url]: https://github.com/devXprite/gitvio/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/devXprite/gitvio.svg?style=for-the-badge
@@ -152,4 +130,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [license-url]: https://github.com/devXprite/gitvio/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: _includes/desktop.png
+[product-screenshot]: _includes/desktop.png -->
