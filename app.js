@@ -8,6 +8,7 @@ const lessMiddleware = require("less-middleware");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const siteMapRouter = require("./routes/sitemap");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/", usersRouter);
+app.use("/sitemap.txt", siteMapRouter);
 
 // catch 404 and forward to error handler
 app.use((_req, _res, next) => {

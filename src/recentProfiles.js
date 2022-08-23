@@ -52,11 +52,13 @@ const saveToRecent = async (renderData) => new Promise((resolve) => {
   });
 });
 
-const recentProfiles = (count = 8) => new Promise((resolve) => {
+const recentProfiles = (count = 8, order = true) => new Promise((resolve) => {
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  const qry = query(ref(db, "recent"), orderByChild("serverTimestamp"), limitToLast(count));
+  const qry = order
+    ? query(ref(db, "recent"), orderByChild("serverTimestamp"), limitToLast(count))
+    : query(ref(db, "recent"), limitToLast(count));
 
   get(qry).then((snapshot) => {
     if (snapshot.exists()) {

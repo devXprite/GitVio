@@ -1,2 +1,3 @@
+Sitemap: https://gitvio.vercel.app/sitemap.txt
 User-agent: *
-Disallow: 
+Disallow:
