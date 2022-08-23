@@ -106,6 +106,14 @@ Don't forget to give the project a Star ⭐! Thanks again!
 5. Open a Pull Request
 
 
+## Contributors ✨
+
+Thanks goes to these wonderful people
+
+- <a href="https://github.com/devXprite">DevXprite</a>
+- <a href="https://github.com/naman-ng">Naman Garg</a>
+    
+
 
 <!-- LICENSE -->
  ## License
