@@ -22,6 +22,10 @@ router.get("/@:username", async (req, res, next) => {
     return;
   }
 
+  if (!process.env?.TOKEN) {
+    throw new Error("Github Personal Access Token not Found!");
+  }
+
   if (cache.has(username)) {
     renderData = cache.get(username);
 

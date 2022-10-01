@@ -6,7 +6,7 @@
   </a>
 </p>
 
-<h1 align="center">Generate beautiful portfolio from your GitHub profile⚡️</h1>
+<h1 align="center">Create beautiful portfolio from your GitHub profile⚡️</h1>
 
 <br>
     
@@ -24,7 +24,7 @@
 </p>
 <br />
 
-Getvio gets your Github profile under a single page in a resume type format
+Gets your Github profile under a single page in a resume type format
 
 ## Usage 
 
@@ -76,21 +76,12 @@ To run the website locally follow these simple steps.
    ```
 >  Server should now be running on localhost
 
-<!-- USAGE EXAMPLES -->
-<!-- ## Usage
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-_For more examples, please refer to the [Documentation](https://example.com)_
-<p align="right">(<a href="#top">back to top</a>)</p> -->
-
-
 <!-- ROADMAP -->
 ## Roadmap
 
 - [ ] Github Timeline
 - [ ] Github competition between two users
 - [x] Contribution Calendar
-
-
 
 
 <!-- CONTRIBUTING -->
@@ -110,9 +101,7 @@ Don't forget to give the project a Star ⭐! Thanks again!
 
 Thanks goes to these wonderful people
 
-- <a href="https://github.com/devXprite">DevXprite</a>
-- <a href="https://github.com/naman-ng">Naman Garg</a>
-    
+![](https://contrib.rocks/image?repo=devXprite/gitvio) 
 
 
 <!-- LICENSE -->
@@ -122,17 +111,3 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- MARKDOWN LINKS & IMAGES
-[contributors-shield]: https://img.shields.io/github/contributors/devXprite/gitvio.svg?style=for-the-badge
-[contributors-url]: https://github.com/devXprite/gitvio/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/devXprite/gitvio.svg?style=for-the-badge
-[forks-url]: https://github.com/devXprite/gitvio/network/members
-[stars-shield]: https://img.shields.io/github/stars/devXprite/gitvio.svg?style=for-the-badge
-[stars-url]: https://github.com/devXprite/gitvio/stargazers
-[issues-shield]: https://img.shields.io/github/issues/devXprite/gitvio.svg?style=for-the-badge
-[issues-url]: https://github.com/devXprite/gitvio/issues
-[license-shield]: https://img.shields.io/github/license/devXprite/gitvio.svg?style=for-the-badge
-[license-url]: https://github.com/devXprite/gitvio/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: _includes/desktop.png -->

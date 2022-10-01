@@ -65,20 +65,20 @@ body {
     background-color: @backgroundColors[tertiary];
     box-shadow: @backgroundColors[primary] 2px 2px 4px;
     border: darken(@colors[secondry], 30%) 1px solid;
- 
+
     &:hover {
-       transform: scale(1.05);
-       border: @colors[secondry] 2px solid;
-       background-color: lighten(@backgroundColors[tertiary], 5%);
+        transform: scale(1.05);
+        border: @colors[secondry] 2px solid;
+        background-color: lighten(@backgroundColors[tertiary], 5%);
     }
- }
+}
 
 footer {
     background-color: @backgroundColors[tertiary];
-    font-family: @fonts[Exo];
+    font-family: @fonts[Ubuntu];
     color: @colors[primary];
     text-align: center;
-    padding: 1.5vh 1vh;
+    padding: 0.25em;
     margin-top: 5vh;
 
     a {
@@ -93,7 +93,7 @@ footer {
 
 .github-corner {
     svg {
-        fill: darken(@colors[secondry],10%);
+        fill: darken(@colors[secondry], 10%);
         color: @backgroundColors[primary];
         position: absolute;
         top: 0;
@@ -140,10 +140,4 @@ footer {
     height: 100%;
     z-index: -1;
     margin-top: -10vh;
-}
-
-@media @desktop {
-    footer {
-        padding: 2vh 15vw;
-    }
 }

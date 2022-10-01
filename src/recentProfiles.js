@@ -29,11 +29,15 @@ const firebaseConfig = {
 
 // eslint-disable-next-line max-len
 const saveToRecent = async (renderData) => new Promise((resolve) => {
+  if (!firebaseConfig?.databaseURL) {
+    resolve();
+    return;
+  }
+
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  const { followers } = renderData.stats;
-  const { following } = renderData.stats;
+  const { followers, following } = renderData.stats;
   const { login, avatarUrl } = renderData;
 
   set(ref(db, `recent/${login}`), {
@@ -42,8 +46,6 @@ const saveToRecent = async (renderData) => new Promise((resolve) => {
     following,
     avatarUrl,
     serverTimestamp: serverTimestamp(),
-  }).then(() => {
-    //
   }).catch((error) => {
     console.log(error);
   }).then(() => {
@@ -53,6 +55,11 @@ const saveToRecent = async (renderData) => new Promise((resolve) => {
 });
 
 const recentProfiles = (count = 8, order = true) => new Promise((resolve) => {
+  if (!firebaseConfig?.databaseURL) {
+    resolve([]);
+    return;
+  }
+
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
@@ -62,7 +69,9 @@ const recentProfiles = (count = 8, order = true) => new Promise((resolve) => {
 
   get(qry).then((snapshot) => {
     if (snapshot.exists()) {
-      resolve(orderBy(snapshot.val(), "serverTimestamp", "desc"));
+      resolve(order
+        ? orderBy(snapshot.val(), "serverTimestamp", "desc")
+        : orderBy(snapshot.val(), "login", "asc"));
     } else {
       resolve([]);
     }
